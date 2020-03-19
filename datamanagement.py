@@ -50,12 +50,11 @@ class DataSource:
         self.setDataPackage(self.getId(), self.retrieveHtmlDataFromSource())
         return self.data_package
     
-    def retrieveHtmlDataFromSource(self):
+   def retrieveHtmlDataFromSource(self):
 
-        # Import modules for loading data from web resources
-        try: 
+        # Import modules needed for loading data from web resources
+        try:
             import requests
-            from bs4 import BeautifulSoup
         except Exception:
             print ("Error: Importing Python modules for web scraping failed")
 
@@ -68,18 +67,12 @@ class DataSource:
         # Encode HTML data retrieved from URL
         try:
             request.encoding = request.apparent_encoding
-            html_data = request.content
+            html_data = request.text
         except Exception:
             print ("Error: Encoding the HTML data retrieved failed")
 
-        # Parse HTML data using BeautifulSoup
-        try:
-            soup = BeautifulSoup(html_data, 'html5lib')
-        except Exception:
-            print ("Error: Parsing the HTML data encoded failed")
-
         # Return raw_data
-        self.setData(soup)
+        self.setData(html_data)
         return self.getData()
 # ---------------------------------------------------------------------------------------
 
